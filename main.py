@@ -8,10 +8,17 @@ load_dotenv()
 api_key = os.getenv("ANTHROPIC_API_KEY")
 client = anthropic.Anthropic(api_key=api_key)
 
-# コマンドライン引数を取得
-# sys.argv[0] = "main.py"（スクリプト名）
-# sys.argv[1] = "sample.py"（渡したファイル名）
+# 引数チェック
+if len(sys.argv) < 2:
+    print("使い方: python3 main.py <ファイルパス>")
+    sys.exit(1)
+
 file_path = sys.argv[1]
+
+# ファイル存在チェック
+if not os.path.exists(file_path):
+    print(f"エラー：{file_path} が見つかりません")
+    sys.exit(1)
 
 print(f"レビュー対象：{file_path}")
 
