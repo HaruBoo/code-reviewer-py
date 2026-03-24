@@ -18,4 +18,15 @@ print(f"レビュー対象：{file_path}")
 with open(file_path, "r", encoding="utf-8") as f:
     code = f.read()
 
-print(code)
+message = client.messages.create(
+    model="claude-opus-4-6",
+    max_tokens=1024,
+    messages=[
+        {
+            "role": "user",
+            "content": f"以下のPythonコードをレビューしてください：\n\n{code}"
+        }
+    ]
+)
+
+print(message.content[0].text)
